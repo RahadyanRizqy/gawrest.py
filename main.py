@@ -5,7 +5,7 @@ from web.routes import router
 from gemini_webapi import GeminiClient
 from gemini_webapi import logger
 from utils.extract_cookies import extract_cookies
-# from utils.replace_logger import *
+from utils.replace_logger import *
 
 from dotenv import dotenv_values
 
@@ -54,6 +54,6 @@ if __name__ == "__main__":
     uvicorn.run(
         "main:app",
         host="0.0.0.0",
-        port=config["port"]
-        # log_config=None
+        port=config["port"],
+        log_config=None
     )
