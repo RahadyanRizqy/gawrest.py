@@ -60,7 +60,6 @@ async def chat(
                 tmp.close()
                 saved_files.append(tmp.name)
 
-                
             response = await chat.send_message(message, files=saved_files)
 
             for path in saved_files:

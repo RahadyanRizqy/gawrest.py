@@ -4,3 +4,9 @@ token_generator.py
 cookies.txt
 unused/
 test_chat.py
+
+__pycache__
+handlers/__pycache__
+middleware/__pycache__
+utils/__pycache__
+web/__pycache__
