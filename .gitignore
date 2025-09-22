@@ -1,0 +1,6 @@
+token_generator.py
+.venv/
+.env
+cookies.txt
+unused/
+test_chat.py
