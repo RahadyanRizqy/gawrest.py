@@ -1,28 +1,27 @@
-# Gemini Web API Wrapper
-
-A FastAPI-based wrapper for interacting with Google's Gemini AI model through its web interface. This project provides a simple HTTP API to communicate with Gemini AI, making it easy to integrate AI capabilities into your applications.
+# Gemini AI Wrapper REST
+<p align="center">
+    <img src="https://raw.githubusercontent.com/RahadyanRizqy/gawrestapi/refs/heads/main/assets/gawrestpy.png" width="75%" alt="Gemini Banner" align="center">
+</p>
+A FastAPI-based wrapper for interacting with Google's Gemini AI. This project provides a simple HTTP API to communicate with Gemini AI, making it easy to integrate AI capabilities into your applications.
 
 ## Features
 
 - 🚀 Fast and efficient API server using FastAPI
-- 🔒 Secure cookie-based authentication
-- 🔄 Automatic session management
-- 📝 Support for streaming responses
 - 🛠️ Environment variable configuration
 - 📊 Built-in logging
 
 ## Prerequisites
 
 - Python 3.13 or higher
-- A Google account with access to Gemini (formerly Bard)
+- A Google account with access to Gemini
 - Required cookies for authentication
 
 ## Installation
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/gawa.py.git
-   cd gawa.py
+   git clone https://github.com/RahadyanRizqy/gawrestapi.git
+   cd gawrestapi
    ```
 
 2. Create and activate a virtual environment (recommended):
@@ -48,7 +47,6 @@ A FastAPI-based wrapper for interacting with Google's Gemini AI model through it
 2. Edit the `.env` file with your configuration:
    ```env
    PORT=5800
-   COOKIE_HEADER=your_cookie_header_here
    SECRET_KEY=your_secret_key_here
    LOG_LEVEL=INFO
    ```
@@ -58,12 +56,8 @@ A FastAPI-based wrapper for interacting with Google's Gemini AI model through it
 ## Obtaining Cookies
 
 1. Log in to [Gemini](https://gemini.google.com/) in your browser
-2. Open Developer Tools (F12)
-3. Go to the Application tab
-4. Under Storage > Cookies, find the following cookies:
-   - `__Secure-1PSID`
-   - `__Secure-1PSIDTS`
-5. Add them to your `.env` file or `cookies.txt`
+2. Use Cookie-Editor extension and copy the header-string
+3. Paste it into `cookies.txt`
 
 ## Running the Application
 
@@ -99,8 +93,8 @@ Authorization: Bearer your_jwt_token_here
 - **URL**: `POST /chat`
 - **Description**: Send a message to Gemini AI
 - **Headers**:
-  - `Content-Type: application/json` or `multipart/form-data`
-  - `X-Chat-Metadata`: (Optional) Encrypted chat metadata for continuing conversations
+  - `Content-Type: application/json` or `multipart/form-data` (for files only)
+  - `X-Chat-Metadata`: (Optional) Simplified chat metadata for continuing conversations
 - **Request Body (JSON)**:
   ```json
   {
@@ -121,7 +115,7 @@ Authorization: Bearer your_jwt_token_here
   }
   ```
 - **Response Headers**:
-  - `X-Chat-Metadata`: Encrypted metadata to continue this conversation
+  - `X-Chat-Metadata`: Simplified metadata to continue this conversation
 
 #### 3. Chat with Specific Gemini Model
 - **URL**: `POST /chat/{gem_id}`
@@ -148,7 +142,7 @@ Authorization: Bearer your_jwt_token_here
           "predefined": true
         }
       ],
-      "user": "user_id"
+      "user": "your_details"
     }
   }
   ```
@@ -203,12 +197,6 @@ Authorization: Bearer your_jwt_token_here
 - **Path Parameters**:
   - `gem_id`: (string) ID of the Gemini model to delete
 
-### Interactive Documentation
-
-You can also explore and test the API using the interactive documentation:
-- Swagger UI: `http://localhost:5800/docs`
-- ReDoc: `http://localhost:5800/redoc`
-
 ## Project Structure
 
 ```
@@ -217,7 +205,6 @@ You can also explore and test the API using the interactive documentation:
 ├── .gitignore           # Git ignore file
 ├── main.py              # Main application entry point
 ├── requirements.txt     # Python dependencies
-├── assets/              # Static assets
 ├── handlers/            # Request handlers
 ├── middleware/          # Custom middleware
 ├── utils/               # Utility functions
@@ -229,17 +216,8 @@ You can also explore and test the API using the interactive documentation:
 | Variable       | Default   | Description                              |
 |----------------|-----------|------------------------------------------|
 | PORT           | 5800      | Port to run the server on                |
-| COOKIE_HEADER  | ""        | Your Gemini authentication cookies       |
 | SECRET_KEY     | changeme  | Secret key for the application           |
 | LOG_LEVEL     | INFO      | Logging level (DEBUG, INFO, WARNING, etc.) |
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Disclaimer
 
