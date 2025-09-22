@@ -2,6 +2,9 @@ from fastapi import Request, UploadFile, File, Form, HTTPException, Header
 from fastapi.responses import JSONResponse
 from typing import Optional, List, Dict, Any
 import json
+import tempfile
+import shutil
+import os
 
 from utils import simplify_metadata, extract_metadata, is_valid_metadata
 from pydantic import BaseModel
@@ -48,15 +51,20 @@ async def chat(
             
             if not message and not files:
                 raise HTTPException(status_code=400, detail="Either message or files must be provided")
+
+            saved_files = []
+
+            for f in files:
+                tmp = tempfile.NamedTemporaryFile(dir="./tmp", delete=False, suffix=f.filename)
+                shutil.copyfileobj(f.file, tmp)
+                tmp.close()
+                saved_files.append(tmp.name)
+
                 
-            # Process files if any
-            file_contents = []
-            if files:
-                for file in files:
-                    content = await file.read()
-                    file_contents.append((file.filename, content, file.content_type))
-            
-            response = await chat.send_message(message, files=[file_contents])
+            response = await chat.send_message(message, files=saved_files)
+
+            for path in saved_files:
+                os.remove(path)
         else:
             # Handle JSON request
             try:
